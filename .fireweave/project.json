@@ -1,0 +1,63 @@
+{
+  "defaultEnvironment": "production",
+  "orgId": "hcWR8Q9ZFMaWSaWbwqdPYC2i2zY2fWna",
+  "projectId": "49bedec3-d3eb-41a8-88a6-0572d22e74bb",
+  "projectName": "test-18nov",
+  "rolloutReady": {
+    "attestUrl": "https://staging-app-server.fireweave.ai",
+    "rolloutCredentialEnv": "FIREWEAVE_KEY"
+  },
+  "server": {
+    "url": "https://staging-app-server.fireweave.ai"
+  },
+  "surfaces": [
+    {
+      "entrypoint": "apps/api/src/server.ts",
+      "harnessKind": "package",
+      "metricsClient": "none",
+      "path": "apps/api",
+      "rolloutCredentialEnv": "FIREWEAVE_KEY",
+      "surface": "ts-server",
+      "surfaceId": "sfc_01M7Q02VGP05Y8NHXXGEA8QSR6",
+      "trackerPath": ".fireweave/stamps.ts",
+      "sdk": {
+        "name": "@fireweaveai/server-sdk",
+        "version": "3.1.1-rc.1",
+        "channel": "staging"
+      }
+    },
+    {
+      "harnessKind": "package",
+      "metricsClient": "none",
+      "path": "apps/console",
+      "rolloutCredentialEnv": "FIREWEAVE_BROWSER_KEY",
+      "startProfile": "client",
+      "surface": "web",
+      "surfaceId": "sfc_01M7Q02VGQVAPKGFB08XPCGGV5",
+      "trackerPath": ".fireweave/stamps.ts",
+      "sdk": {
+        "name": "@fireweaveai/web-sdk",
+        "version": "3.1.1-rc.1",
+        "channel": "staging"
+      },
+      "entrypoint": "apps/console/instrumentation-client.ts"
+    },
+    {
+      "harnessKind": "package",
+      "metricsClient": "none",
+      "path": "apps/marketing",
+      "rolloutCredentialEnv": "FIREWEAVE_BROWSER_KEY",
+      "startProfile": "client",
+      "surface": "web",
+      "surfaceId": "sfc_01M7Q02VGQVAPKGFB08XPCGGV6",
+      "trackerPath": ".fireweave/stamps.ts",
+      "sdk": {
+        "name": "@fireweaveai/web-sdk",
+        "version": "3.1.1-rc.1",
+        "channel": "staging"
+      },
+      "entrypoint": "apps/marketing/instrumentation-client.ts"
+    }
+  ],
+  "version": 2
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import { fw } from "@fireweaveai/web-sdk/start";
 import { createAuthClient } from "better-auth/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -18,7 +19,7 @@ export default function LoginPage() {
     setError("");
     setPending(true);
     const form = new FormData(event.currentTarget);
-    const { error: signInError } = await authClient.signIn.email({
+    const { data, error: signInError } = await authClient.signIn.email({
       email: String(form.get("email") ?? ""),
       password: String(form.get("password") ?? ""),
     });
@@ -27,6 +28,7 @@ export default function LoginPage() {
       setError(COPY.signInError);
       return;
     }
+    if (data?.user?.id) await fw.identify(data.user.id);
     window.location.href = "/inbox";
   }
 

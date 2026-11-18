@@ -11,3 +11,7 @@ allowBuilds:
   protobufjs: true
   sharp: true
   unrs-resolver: true
+
+minimumReleaseAgeExclude:
+  - '@fireweaveai/server-sdk@3.1.1-rc.1'
+  - '@fireweaveai/web-sdk@3.1.1-rc.1'

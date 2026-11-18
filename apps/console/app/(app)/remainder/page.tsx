@@ -1,10 +1,11 @@
 "use client";
 
 import { Page, PageHeader } from "../../../components/PageHeader";
-import { remainderEnabled } from "../../../lib/remainder";
+import { useRemainderEnabled } from "../../../lib/remainder";
 
 export default function RemainderPage() {
-  if (!remainderEnabled()) {
+  const enabled = useRemainderEnabled();
+  if (!enabled) {
     return (
       <Page>
         <PageHeader title="Remainder" subtitle="Not on for this desk" />

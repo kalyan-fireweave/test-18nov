@@ -5,7 +5,7 @@ import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCounts } from "../lib/counts";
-import { remainderEnabled } from "../lib/remainder";
+import { useRemainderEnabled } from "../lib/remainder";
 import { Button } from "./Button";
 
 type Props = {
@@ -53,7 +53,8 @@ function NavItem({
 export function Sidebar({ clinicName, userName, role }: Props) {
   const path = usePathname();
   const { counts } = useCounts();
-  const items = today.filter((item) => item.href !== "/remainder" || remainderEnabled());
+  const showRemainder = useRemainderEnabled();
+  const items = today.filter((item) => item.href !== "/remainder" || showRemainder);
   const active = (href: string) => path === href || path.startsWith(`${href}/`) || (href === "/auth" && path.startsWith("/prior-auth"));
 
   async function signOut() {

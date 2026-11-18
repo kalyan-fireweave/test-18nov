@@ -1,25 +1,8 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
-
-function loadEnv() {
-  const raw = readFileSync(path.resolve(".env"), "utf8");
-  const values: Record<string, string> = {};
-  for (const line of raw.split("\n")) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) continue;
-    const cut = trimmed.indexOf("=");
-    if (cut === -1) continue;
-    values[trimmed.slice(0, cut)] = trimmed.slice(cut + 1);
-  }
-  return values;
-}
-
-const file = loadEnv();
-
+// Dev traces stay on the local OpenObserve. Hosted credentials in .env are for prod.
 export const observe = {
-  endpoint: file.OO_QUERY_ENDPOINT || file.OO_OTLP_ENDPOINT,
-  authorization: file.OO_AUTHORIZATION,
-  stream: file.OO_STREAM || "clinic",
+  endpoint: "http://127.0.0.1:15080/api/default",
+  authorization: "Basic YWRtaW5AZXhhbXBsZS5jb206Q2hhbmdlTWUxMjMh",
+  stream: "clinic",
 };
 
 export async function latestTraces(minutes = 15) {

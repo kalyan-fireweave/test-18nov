@@ -40,4 +40,4 @@ Push to `main` on [showcase-clinic](https://github.com/fireweave-HQ-Demo/showcas
 
 `make test` runs the rules and write-gate tests on the host.
 
-Traces leave the API only through the collector. The collector redacts identifiers, then writes to that stack's OpenObserve and to the hosted stream (`clinic`, `clinic-stage`, or `clinic-prod`). OpenObserve login is `admin@example.com` / `ChangeMe123!`. Hosted credentials stay in `.env`. `make e2e` checks that a referral span arrives and that a planted SSN does not.
+Traces leave the API only through the collector. The collector redacts identifiers, then writes to that stack's OpenObserve. Stage and the laptop prod sim also write to the hosted stream (`clinic-stage` or `clinic-prod`). Dev does not use hosted credentials. OpenObserve login is `admin@example.com` / `ChangeMe123!`. Hosted credentials stay in `.env`. `make e2e` checks the dev OpenObserve for a referral span and that a planted SSN does not.

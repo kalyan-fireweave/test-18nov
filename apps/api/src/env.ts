@@ -10,6 +10,7 @@ export const env = {
   minioBucket: process.env.MINIO_BUCKET ?? "documents",
   authSecret: process.env.BETTER_AUTH_SECRET ?? "dev-better-auth-secret-32chars-min",
   authUrl: process.env.BETTER_AUTH_URL ?? "http://localhost:3000",
+  authCookiePrefix: process.env.AUTH_COOKIE_PREFIX || "better-auth",
   internalToken: process.env.INTERNAL_TOKEN ?? "dev-internal-token",
   browserRunnerUrl: process.env.BROWSER_RUNNER_URL ?? "http://localhost:4020",
   sandboxEhrUrl: process.env.SANDBOX_EHR_URL ?? "http://localhost:4010",

@@ -20,6 +20,7 @@ function originPair(url: string): string[] {
 export const auth = betterAuth({
   secret: env.authSecret,
   baseURL: env.authUrl,
+  advanced: { cookiePrefix: env.authCookiePrefix },
   database: drizzleAdapter(db, {
     provider: "pg",
     schema: { user, session, account, verification, organization: organizationTable, member, invitation },

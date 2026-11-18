@@ -12,5 +12,9 @@ COPY packages/db/package.json packages/db/package.json
 COPY packages/ui/package.json packages/ui/package.json
 RUN pnpm install --frozen-lockfile
 COPY . .
+ARG FIREWEAVE_BROWSER_KEY=
+ARG FIREWEAVE_ENV=development
+ENV FIREWEAVE_BROWSER_KEY=$FIREWEAVE_BROWSER_KEY
+ENV FIREWEAVE_ENV=$FIREWEAVE_ENV
 RUN pnpm --filter @clinic/console build && pnpm --filter @clinic/marketing build
 CMD ["pnpm", "--filter", "@clinic/api", "exec", "tsx", "src/server.ts"]

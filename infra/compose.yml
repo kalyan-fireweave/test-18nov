@@ -88,10 +88,13 @@ services:
 
   api:
     profiles: [app]
-    image: clinic-node:local
+    image: ${NODE_IMAGE:-clinic-node:local}
     build:
       context: ..
       dockerfile: infra/docker/node.Dockerfile
+      args:
+        FIREWEAVE_BROWSER_KEY: ${FIREWEAVE_BROWSER_KEY:-}
+        FIREWEAVE_ENV: ${FIREWEAVE_BUILD_ENV:-development}
     command: ["pnpm", "--filter", "@clinic/api", "exec", "tsx", "src/server.ts"]
     environment:
       DATABASE_URL: postgres://clinic_app:clinic_app@postgres:5432/clinic
@@ -117,6 +120,8 @@ services:
       BROWSER_RUNNER_URL: http://browser-runner:4020
       SANDBOX_EHR_URL: http://sandbox-ehr:4010
       SANDBOX_PAYER_URL: http://sandbox-payer:4011
+      FIREWEAVE_KEY: ${FIREWEAVE_KEY:-}
+      FIREWEAVE_ENV: ${FIREWEAVE_ENV:-development}
       PORT: 4000
     ports:
       - "127.0.0.1:${BIND_API:-4000}:4000"
@@ -130,7 +135,7 @@ services:
 
   worker:
     profiles: [app]
-    image: clinic-node:local
+    image: ${NODE_IMAGE:-clinic-node:local}
     pull_policy: never
     command: ["pnpm", "--filter", "@clinic/api", "exec", "tsx", "src/worker.ts"]
     environment:
@@ -152,7 +157,7 @@ services:
 
   console:
     profiles: [app]
-    image: clinic-node:local
+    image: ${NODE_IMAGE:-clinic-node:local}
     pull_policy: never
     command: ["pnpm", "--filter", "@clinic/console", "start"]
     environment:
@@ -163,7 +168,7 @@ services:
 
   marketing:
     profiles: [app]
-    image: clinic-node:local
+    image: ${NODE_IMAGE:-clinic-node:local}
     pull_policy: never
     command: ["pnpm", "--filter", "@clinic/marketing", "start"]
     ports:

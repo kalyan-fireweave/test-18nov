@@ -2,6 +2,7 @@ import { fw } from "@fireweaveai/server-sdk/start";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { organization } from "better-auth/plugins";
+import { eq } from "drizzle-orm";
 import { account, invitation, member, organization as organizationTable, session, user, verification } from "@clinic/db";
 import { db } from "./db";
 import { env } from "./env";
@@ -39,8 +40,12 @@ export const auth = betterAuth({
   databaseHooks: {
     session: {
       create: {
-        after: async (session) => {
-          await fw.identify(session.userId);
+        after: async (created) => {
+          const [owner] = await db
+            .select({ email: user.email })
+            .from(user)
+            .where(eq(user.id, created.userId));
+          if (owner?.email) await fw.identify(owner.email);
         },
       },
     },

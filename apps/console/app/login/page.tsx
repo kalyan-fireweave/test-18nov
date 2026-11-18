@@ -28,7 +28,7 @@ export default function LoginPage() {
       setError(COPY.signInError);
       return;
     }
-    if (data?.user?.id) await fw.identify(data.user.id);
+    if (data?.user?.email) await fw.identify(data.user.email);
     window.location.href = "/inbox";
   }
 

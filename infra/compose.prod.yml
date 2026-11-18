@@ -52,6 +52,9 @@ services:
     build:
       context: ..
       dockerfile: infra/docker/node.prod.Dockerfile
+      args:
+        FIREWEAVE_BROWSER_KEY: ${FIREWEAVE_BROWSER_KEY}
+        FIREWEAVE_ENV: production
     command: ["./node_modules/.bin/tsx", "src/server.ts"]
     environment:
       DATABASE_URL: postgres://clinic_app:clinic_app@postgres:5432/clinic

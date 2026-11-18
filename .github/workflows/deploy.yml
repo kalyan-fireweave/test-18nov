@@ -24,7 +24,10 @@ jobs:
 
       - name: Build images
         run: |
-          docker build -f infra/docker/node.prod.Dockerfile -t "$IMAGE" .
+          docker build -f infra/docker/node.prod.Dockerfile \
+            --build-arg FIREWEAVE_BROWSER_KEY="${{ secrets.FIREWEAVE_BROWSER_KEY }}" \
+            --build-arg FIREWEAVE_ENV=production \
+            -t "$IMAGE" .
           docker build -f infra/docker/sandbox.Dockerfile -t ghcr.io/fireweave-hq-demo/clinic-sandbox:prod .
           docker build -f infra/docker/agent.Dockerfile -t ghcr.io/fireweave-hq-demo/clinic-agent:prod .
           docker build -f infra/docker/browser.prod.Dockerfile -t ghcr.io/fireweave-hq-demo/clinic-browser:prod .

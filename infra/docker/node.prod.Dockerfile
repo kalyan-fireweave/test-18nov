@@ -14,6 +14,10 @@ RUN pnpm install --frozen-lockfile
 COPY apps/api apps/api
 COPY apps/console apps/console
 COPY packages packages
+ARG FIREWEAVE_BROWSER_KEY
+ARG FIREWEAVE_ENV=production
+ENV FIREWEAVE_BROWSER_KEY=$FIREWEAVE_BROWSER_KEY
+ENV FIREWEAVE_ENV=$FIREWEAVE_ENV
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN pnpm --filter @clinic/console build \
   && pnpm --filter @clinic/api deploy --prod --legacy /out/api

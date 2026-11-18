@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useCounts } from "../lib/counts";
 import { useRemainderEnabled } from "../lib/remainder";
 import { Button } from "./Button";
+import { ThemeToggle } from "./ThemeToggle";
 
 type Props = {
   clinicName: string;
@@ -65,7 +66,10 @@ export function Sidebar({ clinicName, userName, role }: Props) {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <div className="brand">Clinic OS</div>
+        <div className="brand-row">
+          <div className="brand">Clinic OS</div>
+          <ThemeToggle />
+        </div>
         {clinicName ? <div className="sidebar-clinic">{clinicName}</div> : null}
         <div className="sidebar-user">
           {role || "Staff"}

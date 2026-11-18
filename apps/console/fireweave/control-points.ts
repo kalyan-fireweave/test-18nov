@@ -4,4 +4,5 @@ import { defineControlPoints } from '@fireweaveai/web-sdk/start';
 
 export const controlPoints = defineControlPoints({
   remainder: { local: true },
+  'theme-menu': { local: true },
 });

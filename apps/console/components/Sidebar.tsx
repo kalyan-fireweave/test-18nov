@@ -7,6 +7,8 @@ import { usePathname } from "next/navigation";
 import { useCounts } from "../lib/counts";
 import { useRemainderEnabled } from "../lib/remainder";
 import { Button } from "./Button";
+import { useThemeMenuEnabled } from "../lib/theme-menu";
+import { ThemeMenu } from "./ThemeMenu";
 import { ThemeToggle } from "./ThemeToggle";
 
 type Props = {
@@ -55,6 +57,7 @@ export function Sidebar({ clinicName, userName, role }: Props) {
   const path = usePathname();
   const { counts } = useCounts();
   const showRemainder = useRemainderEnabled();
+  const themeMenu = useThemeMenuEnabled();
   const items = today.filter((item) => item.href !== "/remainder" || showRemainder);
   const active = (href: string) => path === href || path.startsWith(`${href}/`) || (href === "/auth" && path.startsWith("/prior-auth"));
 
@@ -68,8 +71,9 @@ export function Sidebar({ clinicName, userName, role }: Props) {
       <div className="sidebar-brand">
         <div className="brand-row">
           <div className="brand">Clinic OS</div>
-          <ThemeToggle />
+          {themeMenu ? null : <ThemeToggle />}
         </div>
+        {themeMenu ? <ThemeMenu /> : null}
         {clinicName ? <div className="sidebar-clinic">{clinicName}</div> : null}
         <div className="sidebar-user">
           {role || "Staff"}

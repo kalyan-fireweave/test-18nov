@@ -12,6 +12,7 @@ x-console-src: &console-src
   - ../apps/console/app:/app/apps/console/app
   - ../apps/console/components:/app/apps/console/components
   - ../apps/console/lib:/app/apps/console/lib
+  - ../apps/console/fireweave:/app/apps/console/fireweave
   - ../apps/console/public:/app/apps/console/public
   - ../apps/console/next.config.ts:/app/apps/console/next.config.ts
   - ../packages/ui:/app/packages/ui

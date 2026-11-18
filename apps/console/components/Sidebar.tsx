@@ -1,10 +1,11 @@
 "use client";
 
-import { Calendar, FileCheck, Inbox, LayoutDashboard, Mic, Settings, Sliders } from "lucide-react";
+import { Bell, Calendar, FileCheck, Inbox, LayoutDashboard, Mic, Settings, Sliders } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCounts } from "../lib/counts";
+import { remainderEnabled } from "../lib/remainder";
 import { Button } from "./Button";
 
 type Props = {
@@ -17,6 +18,7 @@ const today: Array<{ href: string; label: string; icon: LucideIcon; badge?: "inb
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/inbox", label: "Inbox", icon: Inbox, badge: "inbox" },
   { href: "/schedule", label: "Schedule", icon: Calendar },
+  { href: "/remainder", label: "Remainder", icon: Bell },
   { href: "/auth", label: "Prior auth", icon: FileCheck, badge: "pa" },
   { href: "/scribe", label: "Scribe", icon: Mic },
 ];
@@ -51,6 +53,7 @@ function NavItem({
 export function Sidebar({ clinicName, userName, role }: Props) {
   const path = usePathname();
   const { counts } = useCounts();
+  const items = today.filter((item) => item.href !== "/remainder" || remainderEnabled());
   const active = (href: string) => path === href || path.startsWith(`${href}/`) || (href === "/auth" && path.startsWith("/prior-auth"));
 
   async function signOut() {
@@ -70,7 +73,7 @@ export function Sidebar({ clinicName, userName, role }: Props) {
       </div>
       <div className="nav-section">
         <div className="nav-label">Today</div>
-        {today.map((item) => (
+        {items.map((item) => (
           <NavItem
             key={item.href}
             href={item.href}
